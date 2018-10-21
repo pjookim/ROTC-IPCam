@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
         final FloatingActionButton coverButton = (FloatingActionButton) findViewById(R.id.coverButton);
         coverButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View view) {
                 coverView.setVisibility(View.VISIBLE);
@@ -133,10 +134,14 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         Animation myFadeInAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.tween);
         onAir.startAnimation(myFadeInAnimation);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Integer port = Integer.parseInt(preferences.getString("port", "8080"));
+
         TextView ipAddress = (TextView) findViewById(R.id.ipAddress);
-        ipAddress.setText(getIp());
+        ipAddress.setText(getIp()+ ":" + port);
 
         coverView.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View view) {
                 coverView.setVisibility(View.INVISIBLE);
